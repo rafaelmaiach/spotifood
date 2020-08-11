@@ -1,4 +1,7 @@
 export default {
-	key: 'vueBoilerplate',
-	paths: [],
+	key: 'spotifoodrmc',
+	paths: [
+		'SpotifyAuth.access',
+		'SpotifyAuth.tokenExpireDate',
+	],
 };

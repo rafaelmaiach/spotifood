@@ -8,6 +8,7 @@ export default {
 			isLoading: false,
 			hasError: false,
 			access: null,
+			tokenExpireDate: null,
 		};
 	},
 	mutations,
