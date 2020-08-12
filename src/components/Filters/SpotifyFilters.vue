@@ -90,7 +90,7 @@
 					locale: 'en_US',
 					country: 'BR',
 					datetime: format(new Date(), 'yyyy-MM-dd\'T\'hh:mm:ss'),
-					limit: '1',
+					limit: '10',
 					offset: '1',
 				},
 				rules: {
@@ -131,7 +131,7 @@
 
 			// Even if filters weren't loaded, we still have an initial data defined
 			// So we can load the playlists using it
-			this.getFeaturedPlaylists(this.form.data);
+			this.getFeaturedPlaylists(this.form);
 		},
 		methods: {
 			...mapActions({
