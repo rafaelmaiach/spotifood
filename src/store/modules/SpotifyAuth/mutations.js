@@ -12,8 +12,11 @@ export default {
 
 		// Creates an expiration time to know when fetch a new access token
 		// So we don't overload the authorization api
+		// I'm using 85% of the token expiration time, to refresh the token before it expires
+		const expiresIn = access.expires_in * 0.85;
+
 		if (access) {
-			state.tokenExpireDate = addSeconds(new Date(), access.expires_in);
+			state.tokenExpireDate = addSeconds(new Date(), expiresIn);
 		} else {
 			state.tokenExpireDate = null;
 		}
