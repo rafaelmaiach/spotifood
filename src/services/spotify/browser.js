@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import qs from 'qs';
 import apiList from './api';
 
 /**
@@ -8,8 +9,11 @@ import apiList from './api';
  * @param {string} params.token_type Token type
  * @returns Fetch promise
  */
-const getFeaturedPlaylists = ({ access_token, token_type }) => {
+const getFeaturedPlaylists = ({ access_token, token_type }, params) => {
+	const query = qs.stringify(params);
 	const uri = apiList.browse.featuredPlaylists;
+
+	const endpoint = `${uri}?${query}`;
 
 	const fetchOptions = {
 		headers: {
@@ -17,7 +21,7 @@ const getFeaturedPlaylists = ({ access_token, token_type }) => {
 		},
 	};
 
-	return fetch(uri, fetchOptions);
+	return fetch(endpoint, fetchOptions);
 };
 
 export {
