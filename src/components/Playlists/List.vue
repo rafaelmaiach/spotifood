@@ -1,34 +1,39 @@
 <template>
 	<v-row>
-		<v-col
-			v-for="item in itemsFiltered"
-			:key="item.id"
-			class="col-12 col-sm-6 col-md-4 col-lg-3"
-		>
-			<v-card>
-				<v-img
-					class="white--text align-end"
-					height="250px"
-					contain
-					:src="item.image.url"
-				/>
-
-				<v-card-title>{{ item.title }}</v-card-title>
-
-				<v-card-subtitle class="pb-0">{{ item.description }}</v-card-subtitle>
-
-				<v-card-actions>
-					<v-btn
-						:href="item.external_urls.spotify"
-						target="_blank"
-						color="orange"
-						text
-					>
-						{{ $t('general.listen') }}
-					</v-btn>
-				</v-card-actions>
-			</v-card>
+		<v-col v-if="!itemsFiltered.length" class="text-center mt-10">
+			<h3>{{ $t('playlists.errors.notFound') }}</h3>
 		</v-col>
+		<template v-else>
+			<v-col
+				v-for="item in itemsFiltered"
+				:key="item.id"
+				class="col-12 col-sm-6 col-md-4 col-lg-3"
+			>
+				<v-card>
+					<v-img
+						class="white--text align-end"
+						height="250px"
+						contain
+						:src="item.image.url"
+					/>
+
+					<v-card-title>{{ item.title }}</v-card-title>
+
+					<v-card-subtitle class="pb-0">{{ item.description }}</v-card-subtitle>
+
+					<v-card-actions>
+						<v-btn
+							:href="item.external_urls.spotify"
+							target="_blank"
+							color="orange"
+							text
+						>
+							{{ $t('general.listen') }}
+						</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-col>
+		</template>
 	</v-row>
 </template>
 

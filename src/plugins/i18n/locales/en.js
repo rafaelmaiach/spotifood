@@ -27,6 +27,7 @@ module.exports = {
 		errors: {
 			list: 'Could not fetch playlists data',
 			empty: 'This playlist is empty',
+			notFound: 'Sorry, we couldn\'t find this playlist',
 		},
 	},
 };
