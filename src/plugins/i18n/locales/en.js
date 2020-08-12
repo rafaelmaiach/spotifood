@@ -21,4 +21,7 @@ module.exports = {
 			offsetMinimum: 'Minimum page is {value}',
 		},
 	},
+	playlists: {
+		title: 'Playlist: {value}',
+	},
 };
