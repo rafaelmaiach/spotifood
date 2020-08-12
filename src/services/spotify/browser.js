@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import qs from 'qs';
 import apiList from './api';
 
 /**
@@ -10,7 +9,15 @@ import apiList from './api';
  * @returns Fetch promise
  */
 const getFeaturedPlaylists = ({ access_token, token_type }, params) => {
-	const query = qs.stringify(params);
+	const {
+		locale,
+		country,
+		timestamp,
+		limit,
+		offset,
+	} = params;
+
+	const query = `locale=${locale}&country=${country}&timestamp=${timestamp}&limit=${limit}&offset=${offset}`;
 	const uri = apiList.browse.featuredPlaylists;
 
 	const endpoint = `${uri}?${query}`;
