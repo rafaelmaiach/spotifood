@@ -10,6 +10,7 @@ module.exports = {
 	general: {
 		filters: 'Filtros',
 		playlistName: 'Nome da playlist',
+		listen: 'Ouça no Spotify',
 	},
 	filters: {
 		errors: {
@@ -25,6 +26,7 @@ module.exports = {
 		title: 'Playlist: {value}',
 		errors: {
 			list: 'Could not fetch playlists data',
+			empty: 'Esta playlist está vazia',
 		},
 	},
 };
