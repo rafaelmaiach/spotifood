@@ -5,6 +5,9 @@ import i18n from '../i18n';
 Vue.use(Vuetify);
 
 export default new Vuetify({
+	theme: {
+		dark: true,
+	},
 	lang: {
 		t: (key, ...params) => i18n.t(key, params), // eslint-disable-line @intlify/vue-i18n/no-dynamic-keys
 	},
