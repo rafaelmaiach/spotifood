@@ -115,14 +115,7 @@
 			form: {
 				deep: true,
 				handler(data) {
-					// Loop through every rule and all of them should be valid
-					// Also we compare with strict "true" as the invalid value results in the fallback error string
-					const limitIsValid = this.validateRule('limit', data.limit);
-					const offsetIsValid = this.validateRule('offset', data.offset);
-
-					if (limitIsValid && offsetIsValid) {
-						this.getFeaturedPlaylists(data);
-					}
+					this.getPlaylists(data);
 				},
 			},
 		},
@@ -131,7 +124,7 @@
 
 			// Even if filters weren't loaded, we still have an initial data defined
 			// So we can load the playlists using it
-			this.getFeaturedPlaylists(this.form);
+			this.getPlaylists(this.form);
 		},
 		methods: {
 			...mapActions({
@@ -158,6 +151,16 @@
 					this.hasError = true;
 				} finally {
 					this.isLoading = false;
+				}
+			},
+			getPlaylists(data) {
+				// Loop through every rule and all of them should be valid
+				// Also we compare with strict "true" as the invalid value results in the fallback error string
+				const limitIsValid = this.validateRule('limit', data.limit);
+				const offsetIsValid = this.validateRule('offset', data.offset);
+
+				if (limitIsValid && offsetIsValid) {
+					this.getFeaturedPlaylists(data);
 				}
 			},
 			validateRule(rule, value) {
