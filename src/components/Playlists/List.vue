@@ -54,7 +54,7 @@
 						image: VueTypes.string,
 					}),
 				),
-				null,
+				VueTypes.array,
 			]),
 		},
 		data() {
