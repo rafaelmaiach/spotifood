@@ -1,12 +1,12 @@
 <template>
 	<v-container>
-		<v-row>
-			<v-col cols="12">
+		<v-row justify="center">
+			<v-col cols="12" sm="10" md="11">
 				<h2>{{ $t('general.filters') }}</h2>
 			</v-col>
-			<SpotifyFilters />
-			<PlaylistsFilter />
 		</v-row>
+		<SpotifyFilters />
+		<PlaylistsFilter />
 	</v-container>
 </template>
 
