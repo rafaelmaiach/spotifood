@@ -18,7 +18,7 @@ module.exports = {
 		rules: {
 			limitMinimum: 'Minimum quantity is {value}',
 			limitMaximum: 'Maximum quantity is {value}',
-			offsetMinimum: 'Invalid page',
+			offsetMinimum: 'Minimum page is {value}',
 		},
 	},
 };
