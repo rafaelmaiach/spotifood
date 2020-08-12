@@ -1,24 +1,16 @@
 <template>
 	<v-container>
-		<v-row justify="center">
-			<v-col cols="12" sm="10" md="11">
-				<h2>{{ $t('general.filters') }}</h2>
-			</v-col>
-		</v-row>
-		<SpotifyFilters />
-		<PlaylistsFilter />
+		<Filters />
 	</v-container>
 </template>
 
 <script>
-	import SpotifyFilters from '@/components/Filters/SpotifyFilters.vue';
-	import PlaylistsFilter from '@/components/Filters/PlaylistsFilter.vue';
+	import Filters from '@/components/Filters/Filters.vue';
 
 	export default {
 		name: 'Home',
 		components: {
-			SpotifyFilters,
-			PlaylistsFilter,
+			Filters,
 		},
 	};
 </script>
