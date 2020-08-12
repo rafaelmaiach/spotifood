@@ -2,7 +2,7 @@
 	<v-container>
 		<v-row>
 			<v-col cols="12">
-				<h1>Filters</h1>
+				<h2>{{ $t('general.filters') }}</h2>
 			</v-col>
 			<SpotifyFilters />
 			<PlaylistsFilter />

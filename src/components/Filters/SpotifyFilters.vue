@@ -11,7 +11,7 @@
 			</v-row>
 
 			<v-row v-else-if="hasError" justify="center">
-				<h3 class="mt-5">Sorry, we could not fetch filter's list</h3>
+				<h3 class="mt-5">{{ $t('filters.errors.list') }}</h3>
 			</v-row>
 
 			<v-row v-else justify="center">
@@ -20,7 +20,7 @@
 						v-if="filters.locale"
 						v-model="form.data.locale"
 						:items="filters.locale.values"
-						:label="filters.locale.name"
+						:label="$t(filters.locale.id)"
 						item-text="name"
 						item-name="value"
 					/>
@@ -31,7 +31,7 @@
 						v-if="filters.country"
 						v-model="form.data.country"
 						:items="filters.country.values"
-						:label="filters.country.name"
+						:label="$t(filters.country.id)"
 						item-text="name"
 						item-name="value"
 					/>
@@ -44,7 +44,7 @@
 						dark
 						no-header
 						format="YYYY-MM-DDTHH:mm:ss"
-						:label="filters.timestamp.name"
+						:label="$t(filters.timestamp.id)"
 					/>
 				</v-col>
 
@@ -54,7 +54,7 @@
 						v-model="form.data.limit"
 						type="number"
 						:rules="rules.limit"
-						:label="filters.limit.name"
+						:label="$t(filters.limit.id)"
 						:min="filters.limit.validation.min"
 						:max="filters.limit.validation.max"
 					/>
@@ -67,7 +67,7 @@
 						type="number"
 						min="1"
 						:rules="rules.offset"
-						:label="filters.offset.name"
+						:label="$t(filters.offset.id)"
 					/>
 				</v-col>
 			</v-row>
@@ -96,11 +96,11 @@
 				},
 				rules: {
 					limit: [
-						v => v >= 1 || 'Minimum quantity is 1',
-						v => v <= 50 || 'Maximum quantity is 50',
+						v => v >= 1 || this.$t('filters.rules.limitMinimum', { value: 1 }),
+						v => v <= 50 || this.$t('filters.rules.limitMaximum', { value: 50 }),
 					],
 					offset: [
-						v => v >= 1 || 'Minimum page is 1',
+						v => v >= 1 || this.$t('filters.rules.offsetMinimum', { value: 1 }),
 					],
 				},
 				filters: {
