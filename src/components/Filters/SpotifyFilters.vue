@@ -43,6 +43,7 @@
 						v-model="form.data.datetime"
 						dark
 						no-header
+						no-clear-button
 						format="YYYY-MM-DDTHH:mm:ss"
 						:label="$t(filters.timestamp.id)"
 					/>
@@ -76,6 +77,7 @@
 </template>
 
 <script>
+	import { mapActions } from 'vuex';
 	import { format } from 'date-fns';
 
 	export default {
@@ -89,7 +91,7 @@
 					data: {
 						locale: 'en_US',
 						country: 'BR',
-						datetime: format(new Date(), 'yyyy-MM-dd hh:mm:ss'),
+						datetime: format(new Date(), 'yyyy-MM-dd\'T\'hh:mm:ss'),
 						limit: '1',
 						offset: '1',
 					},
@@ -112,28 +114,58 @@
 				},
 			};
 		},
+		watch: {
+			'form.data': {
+				deep: true,
+				handler(data) {
+					// Loop through every rule and all of them should be valid
+					// Also we compare with strict "true" as the invalid value results in the fallback error string
+					const limitIsValid = this.validateRule('limit', data.limit);
+					const offsetIsValid = this.validateRule('offset', data.offset);
+
+					if (limitIsValid && offsetIsValid) {
+						this.getFeaturedPlaylists(data);
+					}
+				},
+			},
+		},
 		async created() {
-			try {
-				this.isLoading = true;
-				this.hasError = false;
+			await this.loadFilters();
 
-				const response = await fetch('http://www.mocky.io/v2/5a25fade2e0000213aa90776');
-				const { filters } = await response.json();
+			// Even if filters weren't loaded, we still have an initial data defined
+			// So we can load the playlists using it
+			this.getFeaturedPlaylists(this.form.data);
+		},
+		methods: {
+			...mapActions({
+				getFeaturedPlaylists: 'SpotifyBrowser/getFeaturedPlaylists',
+			}),
+			async loadFilters() {
+				try {
+					this.isLoading = true;
+					this.hasError = false;
 
-				const findFilter = id => filters.find(f => f.id === id);
+					const response = await fetch('http://www.mocky.io/v2/5a25fade2e0000213aa90776');
+					const { filters } = await response.json();
 
-				this.filters = {
-					locale: findFilter('locale'),
-					country: findFilter('country'),
-					timestamp: findFilter('timestamp'),
-					limit: findFilter('limit'),
-					offset: findFilter('offset'),
-				};
-			} catch (error) {
-				this.hasError = true;
-			} finally {
-				this.isLoading = false;
-			}
+					const findFilterById = id => filters.find(f => f.id === id);
+
+					this.filters = {
+						locale: findFilterById('locale'),
+						country: findFilterById('country'),
+						timestamp: findFilterById('timestamp'),
+						limit: findFilterById('limit'),
+						offset: findFilterById('offset'),
+					};
+				} catch (error) {
+					this.hasError = true;
+				} finally {
+					this.isLoading = false;
+				}
+			},
+			validateRule(rule, value) {
+				return this.rules[rule].every(r => r(value) === true);
+			},
 		},
 	};
 </script>
