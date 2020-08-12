@@ -125,6 +125,12 @@
 			// Even if filters weren't loaded, we still have an initial data defined
 			// So we can load the playlists using it
 			this.getPlaylists(this.form);
+
+			const thirtySeconds = 1000 * 30; // 1000 = 1 second
+
+			setInterval(() => {
+				this.getPlaylists(this.form);
+			}, thirtySeconds);
 		},
 		methods: {
 			...mapActions({
