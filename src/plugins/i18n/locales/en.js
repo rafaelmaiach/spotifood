@@ -23,5 +23,8 @@ module.exports = {
 	},
 	playlists: {
 		title: 'Playlist: {value}',
+		errors: {
+			list: 'Could not fetch playlists data',
+		},
 	},
 };
