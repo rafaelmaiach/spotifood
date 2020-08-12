@@ -1,10 +1,10 @@
 <template>
 	<v-container class="pb-0">
-		<v-form v-model="form.isValid">
+		<v-form>
 			<v-row v-if="isLoading" justify="center">
 				<v-skeleton-loader
-					v-for="n in 5"
-					:key="n"
+					v-for="number in 5"
+					:key="number"
 					class="col-12 col-sm-2"
 					type="text"
 				/>
@@ -18,7 +18,7 @@
 				<v-col cols="12" sm="3" md="2">
 					<v-select
 						v-if="filters.locale"
-						v-model="form.data.locale"
+						v-model="form.locale"
 						:items="filters.locale.values"
 						:label="$t(filters.locale.id)"
 						item-text="name"
@@ -29,7 +29,7 @@
 				<v-col cols="12" sm="3" md="2">
 					<v-select
 						v-if="filters.country"
-						v-model="form.data.country"
+						v-model="form.country"
 						:items="filters.country.values"
 						:label="$t(filters.country.id)"
 						item-text="name"
@@ -40,7 +40,7 @@
 				<v-col cols="12" sm="4" md="3">
 					<DateTimePicker
 						v-if="filters.timestamp"
-						v-model="form.data.datetime"
+						v-model="form.datetime"
 						dark
 						no-header
 						no-clear-button
@@ -52,7 +52,7 @@
 				<v-col cols="12" sm="4" md="2">
 					<v-text-field
 						v-if="filters.limit"
-						v-model="form.data.limit"
+						v-model="form.limit"
 						type="number"
 						:rules="rules.limit"
 						:label="$t(filters.limit.id)"
@@ -64,7 +64,7 @@
 				<v-col cols="12" sm="4" md="2">
 					<v-text-field
 						v-if="filters.offset"
-						v-model="form.data.offset"
+						v-model="form.offset"
 						type="number"
 						min="1"
 						:rules="rules.offset"
@@ -87,14 +87,11 @@
 				isLoading: false,
 				hasError: false,
 				form: {
-					isValid: true,
-					data: {
-						locale: 'en_US',
-						country: 'BR',
-						datetime: format(new Date(), 'yyyy-MM-dd\'T\'hh:mm:ss'),
-						limit: '1',
-						offset: '1',
-					},
+					locale: 'en_US',
+					country: 'BR',
+					datetime: format(new Date(), 'yyyy-MM-dd\'T\'hh:mm:ss'),
+					limit: '1',
+					offset: '1',
 				},
 				rules: {
 					limit: [
@@ -115,7 +112,7 @@
 			};
 		},
 		watch: {
-			'form.data': {
+			form: {
 				deep: true,
 				handler(data) {
 					// Loop through every rule and all of them should be valid
