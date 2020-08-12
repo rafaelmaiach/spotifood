@@ -4,7 +4,7 @@
 			<h1>{{ title }}</h1>
 		</v-col>
 		<v-container class="pb-0">
-			<v-row v-if="isLoading" justify="center">
+			<v-row v-if="isLoading || !featuredPlaylists" justify="center">
 				<v-skeleton-loader
 					v-for="number in 5"
 					:key="number"
@@ -14,7 +14,7 @@
 				/>
 			</v-row>
 
-			<v-row v-else-if="hasError || !featuredPlaylists" justify="center">
+			<v-row v-else-if="hasError" justify="center">
 				<h3 class="mt-5">{{ $t('playlists.errors.list') }}</h3>
 			</v-row>
 

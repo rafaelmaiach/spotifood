@@ -1,7 +1,7 @@
 <template>
 	<v-row>
 		<v-col
-			v-for="item in items"
+			v-for="item in itemsFiltered"
 			:key="item.id"
 			class="col-12 col-sm-6 col-md-4 col-lg-3"
 		>
@@ -38,16 +38,39 @@
 	export default {
 		name: 'List',
 		props: {
-			items: VueTypes.arrayOf(
-				VueTypes.shape({
-					id: VueTypes.string,
-					title: VueTypes.string,
-					description: VueTypes.string,
-					owner: VueTypes.object,
-					external_urls: VueTypes.object,
-					image: VueTypes.string,
-				}).loose,
-			),
+			items: VueTypes.oneOfType([
+				VueTypes.arrayOf(
+					VueTypes.shape({
+						id: VueTypes.string,
+						title: VueTypes.string,
+						description: VueTypes.string,
+						owner: VueTypes.object,
+						external_urls: VueTypes.object,
+						image: VueTypes.string,
+					}),
+				),
+				null,
+			]),
+		},
+		data() {
+			return {
+				filter: '',
+			};
+		},
+		computed: {
+			itemsFiltered() {
+				const trimmedFilter = this.filter.trim();
+
+				// If no filter, returns all the items, otherwise, return filtered
+				// Search done with lowercase titles
+				return !trimmedFilter
+					? this.items
+					: this.items.filter(item => item.title.toLowerCase().includes(trimmedFilter.toLowerCase()));
+			},
+		},
+		created() {
+			// Creates a event receiver to watch for changes on filter
+			this.$root.$on('filters:playlistTitle', (value) => { this.filter = value; });
 		},
 	};
 </script>
