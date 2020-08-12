@@ -40,7 +40,7 @@
 				<v-col cols="12" sm="4" md="3">
 					<DateTimePicker
 						v-if="filters.timestamp"
-						v-model="form.datetime"
+						v-model="form.timestamp"
 						dark
 						no-header
 						no-clear-button
@@ -89,8 +89,8 @@
 				form: {
 					locale: 'en_US',
 					country: 'BR',
-					datetime: format(new Date(), 'yyyy-MM-dd\'T\'hh:mm:ss'),
-					limit: '10',
+					timestamp: format(new Date(), 'yyyy-MM-dd\'T\'hh:mm:ss'),
+					limit: '20',
 					offset: '1',
 				},
 				rules: {
